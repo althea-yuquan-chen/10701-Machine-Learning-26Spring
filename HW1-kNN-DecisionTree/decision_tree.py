@@ -62,7 +62,7 @@ class DecisionTree:
 
     # find the best split rule for each node, return feature and its threshold
     def _best_split(self, X, y, feature_index):
-        best_gain = 0
+        best_gain = self.min_info_gain if self.min_info_gain is not None else 0
         split_index, split_threshold = None, None
 
         for feature in feature_index:
@@ -286,6 +286,32 @@ def find_optimal_split_val(X_train, y_train, X_val, y_val):
     print("-" * 40)
 
 
+def find_optimal_info_gain(X_train, y_train, X_val, y_val):
+    thresholds = [i / 100 for i in range(101)]
+    
+    best_acc = -1.0
+    best_tau = -1.0
+    
+    print(f"Searching optimal min_info_gain from 0.00 to 1.00...")
+    
+    for tau in thresholds:
+        clf = DecisionTree(min_info_gain=tau, max_depth=None)
+        
+        clf.fit(X_train, y_train)
+        
+        val_acc = clf.calculate_error(X_val, y_val)
+        
+        if val_acc > best_acc:
+            best_acc = val_acc
+            best_tau = tau
+            # print(f"New Best: tau={tau}, Acc={val_acc:.6f}")
+
+    print("-" * 40)
+    print(f"Optimal information gain threshold: {best_tau}")
+    print(f"Validation accuracy: {best_acc:.6f}")
+    print("-" * 40)
+
+
 
 if __name__ == "__main__":
 
@@ -331,6 +357,8 @@ if __name__ == "__main__":
             plot_depth_metrics(X_train, y_train, X_val, y_val)
         elif mode == "optimal_split":
             find_optimal_split_val(X_train, y_train, X_val, y_val)
+        elif mode == "optimal_gain":
+            find_optimal_info_gain(X_train, y_train, X_val, y_val)
         else:
             print(f"[Warning] Unknown mode '{mode}', defaulting output to console.")
             output_filename = None

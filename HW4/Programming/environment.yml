@@ -1,0 +1,20 @@
+name: 10701-env-hw4
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - toolz
+  - matplotlib
+  - pandas
+  - pip
+  - pytorch
+  - ipykernel
+  - pip:
+    - gradescope-utils==0.5.0
+    - regex
+    - transformers
+    - pyarrow
+    - fastparquet
+    - scikit-learn

@@ -11,9 +11,9 @@ from tqdm import tqdm
 
 from custom_modules import Linear, CrossEntropyLoss, Sigmoid
 
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-import numpy as np
+# import matplotlib.pyplot as plt
+# from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
 
 
 class FashionMNISTModel(torch.nn.Module):
@@ -175,15 +175,15 @@ if __name__ == "__main__":
     cm_train = confusion_matrix(train_labels, train_preds)
     disp_train = ConfusionMatrixDisplay(confusion_matrix=cm_train)
     disp_train.plot(cmap='Blues')
-    plt.title("Q8: Training Confusion Matrix")
-    plt.show()
+    # plt.title("Q8: Training Confusion Matrix")
+    # plt.show()
 
     test_labels, test_preds = get_all_preds(model_b5, loader_test_b5)
     cm_test = confusion_matrix(test_labels, test_preds)
     disp_test = ConfusionMatrixDisplay(confusion_matrix=cm_test)
     disp_test.plot(cmap='Oranges')
-    plt.title("Q8: Test Confusion Matrix")
-    plt.show()
+    # plt.title("Q8: Test Confusion Matrix")
+    # plt.show()
 
     print("\n--- Generating Q9: First Misclassified Examples ---")
     
@@ -193,36 +193,36 @@ if __name__ == "__main__":
     misclassified_found = {i: False for i in range(10)}
     count_found = 0
     
-    fig, axes = plt.subplots(2, 5, figsize=(15, 6))
-    axes = axes.flatten()
+    # fig, axes = plt.subplots(2, 5, figsize=(15, 6))
+    # axes = axes.flatten()
     
-    model_b5.eval()
-    with torch.no_grad():
-        for x, y in loader_test_b5:
-            if count_found == 10:
-                break
+    # model_b5.eval()
+    # with torch.no_grad():
+    #     for x, y in loader_test_b5:
+    #         if count_found == 10:
+    #             break
             
-            x_device = x.to(device)
-            _, _, logits = model_b5(x_device)
-            preds = torch.argmax(logits, dim=1).cpu().numpy()
-            y_numpy = y.numpy()
+    #         x_device = x.to(device)
+    #         _, _, logits = model_b5(x_device)
+    #         preds = torch.argmax(logits, dim=1).cpu().numpy()
+    #         y_numpy = y.numpy()
             
-            for i in range(len(y_numpy)):
-                true_label = y_numpy[i]
-                pred_label = preds[i]
+    #         for i in range(len(y_numpy)):
+    #             true_label = y_numpy[i]
+    #             pred_label = preds[i]
                 
-                if true_label != pred_label and not misclassified_found[true_label]:
-                    misclassified_found[true_label] = True
-                    count_found += 1
+    #             if true_label != pred_label and not misclassified_found[true_label]:
+    #                 misclassified_found[true_label] = True
+    #                 count_found += 1
                     
-                    ax = axes[true_label]
-                    img = x[i].squeeze().numpy()
-                    ax.imshow(img, cmap='gray')
-                    ax.set_title(f"True: {classes[true_label]}\nPred: {classes[pred_label]}")
-                    ax.axis('off')
+    #                 ax = axes[true_label]
+    #                 img = x[i].squeeze().numpy()
+    #                 ax.imshow(img, cmap='gray')
+    #                 ax.set_title(f"True: {classes[true_label]}\nPred: {classes[pred_label]}")
+    #                 ax.axis('off')
                     
-    plt.tight_layout()
-    plt.show()
+    # plt.tight_layout()
+    # plt.show()
 
     # Q10: Batch Size Experiments
     print("\n--- Starting Q10: Batch Size Experiments ---")
@@ -258,24 +258,24 @@ if __name__ == "__main__":
         test_losses_dict[bs] = test_losses
 
     # Plot Training Loss for Q10
-    plt.figure(figsize=(10, 5))
-    for bs in batch_sizes:
-        plt.plot(range(1, epochs_q10 + 1), train_losses_dict[bs], label=f'Batch Size {bs}')
-    plt.xlabel('Epoch')
-    plt.ylabel('Training Loss')
-    plt.title('Q10: Training Loss vs. Epoch for Different Batch Sizes')
-    plt.legend()
-    plt.show()
+    # plt.figure(figsize=(10, 5))
+    # for bs in batch_sizes:
+    #     plt.plot(range(1, epochs_q10 + 1), train_losses_dict[bs], label=f'Batch Size {bs}')
+    # plt.xlabel('Epoch')
+    # plt.ylabel('Training Loss')
+    # plt.title('Q10: Training Loss vs. Epoch for Different Batch Sizes')
+    # plt.legend()
+    # plt.show()
 
-    # Plot Test Loss for Q10
-    plt.figure(figsize=(10, 5))
-    for bs in batch_sizes:
-        plt.plot(range(1, epochs_q10 + 1), test_losses_dict[bs], label=f'Batch Size {bs}')
-    plt.xlabel('Epoch')
-    plt.ylabel('Test Loss')
-    plt.title('Q10: Test Loss vs. Epoch for Different Batch Sizes')
-    plt.legend()
-    plt.show()
+    # # Plot Test Loss for Q10
+    # plt.figure(figsize=(10, 5))
+    # for bs in batch_sizes:
+    #     plt.plot(range(1, epochs_q10 + 1), test_losses_dict[bs], label=f'Batch Size {bs}')
+    # plt.xlabel('Epoch')
+    # plt.ylabel('Test Loss')
+    # plt.title('Q10: Test Loss vs. Epoch for Different Batch Sizes')
+    # plt.legend()
+    # plt.show()
 
     # Q13: Custom Hyperparameter Experiment (Learning Rate)
     print("\n--- Starting Q13: Learning Rate Experiments ---")
@@ -308,22 +308,22 @@ if __name__ == "__main__":
         train_losses_lr[lr] = t_losses
         test_losses_lr[lr] = v_losses
 
-    # Plot Training Loss for Q13
-    plt.figure(figsize=(10, 5))
-    for lr in learning_rates:
-        plt.plot(range(1, epochs_q10 + 1), train_losses_lr[lr], label=f'Learning Rate {lr}')
-    plt.xlabel('Epoch')
-    plt.ylabel('Training Loss')
-    plt.title('Q13: Training Loss vs. Epoch for Different Learning Rates')
-    plt.legend()
-    plt.show()
+    # # Plot Training Loss for Q13
+    # plt.figure(figsize=(10, 5))
+    # for lr in learning_rates:
+    #     plt.plot(range(1, epochs_q10 + 1), train_losses_lr[lr], label=f'Learning Rate {lr}')
+    # plt.xlabel('Epoch')
+    # plt.ylabel('Training Loss')
+    # plt.title('Q13: Training Loss vs. Epoch for Different Learning Rates')
+    # plt.legend()
+    # plt.show()
 
-    # Plot Test Loss for Q13
-    plt.figure(figsize=(10, 5))
-    for lr in learning_rates:
-        plt.plot(range(1, epochs_q10 + 1), test_losses_lr[lr], label=f'Learning Rate {lr}')
-    plt.xlabel('Epoch')
-    plt.ylabel('Test Loss')
-    plt.title('Q13: Test Loss vs. Epoch for Different Learning Rates')
-    plt.legend()
-    plt.show()
+    # # Plot Test Loss for Q13
+    # plt.figure(figsize=(10, 5))
+    # for lr in learning_rates:
+    #     plt.plot(range(1, epochs_q10 + 1), test_losses_lr[lr], label=f'Learning Rate {lr}')
+    # plt.xlabel('Epoch')
+    # plt.ylabel('Test Loss')
+    # plt.title('Q13: Test Loss vs. Epoch for Different Learning Rates')
+    # plt.legend()
+    # plt.show()

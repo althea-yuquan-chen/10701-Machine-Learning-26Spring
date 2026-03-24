@@ -1,0 +1,9 @@
+numpy
+pandas
+regex
+matplotlib
+torch
+transformers
+pyarrow
+fastparquet
+scikit-learn

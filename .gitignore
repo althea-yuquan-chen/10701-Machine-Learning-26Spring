@@ -1,2 +1,21 @@
-.venv/
+# Python
 __pycache__/
+*.pyc
+.venv/
+
+# Datasets (large files — download separately)
+FashionMNIST/
+*.pkl
+*.gz
+
+# Model weights (optional — remove if you want to keep these)
+*.pt
+!HW3-NN/nn_implementation_code/weights.pt
+!HW3-NN/check/updated_params.pt
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Editors
+.vscode/
